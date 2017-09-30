@@ -11,15 +11,24 @@ function parseText () {
         const functions = parse.findFunctions(fileText)
 
         functions.forEach(func => {
+            const functionLine = currentFile.lineAt(func.loc.start.line)
+            const params = func.params.map(param => param.name)
             console.log({
                 line: func.loc.start.line,
                 name: func.id.name,
-                params: func.params.map(param => param.name)
+                params
             })
+            // loop until params are declared in an await for..loop
+            // store selections into a object.
+            vscode.window.showQuickPick(params)
+                .then(pick => {
+                    pick.
+                })
         })
 
+
         // const chars = fileText.split('').length
-        vscode.window.showInformationMessage(`This file has ${functions.length} function declarations`);
+        // vscode.window.showInformationMessage(`This file has ${functions.length} function declarations`);
     } else {
         vscode.window.showErrorMessage('This plugin only works with Javascript files! 😕')
     }
