@@ -7,7 +7,7 @@
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
-            "args": ["--extensionDevelopmentPath=/Users/simon.legg/Dropbox/Coding/inline-js-eval" ],
+            "args": ["--extensionDevelopmentPath=${workspaceRoot}" ],
             "stopOnEntry": false
         },
         {
@@ -15,7 +15,7 @@
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
-            "args": ["--extensionDevelopmentPath=/Users/simon.legg/Dropbox/Coding/inline-js-eval", "--extensionTestsPath=/Users/simon.legg/Dropbox/Coding/inline-js-eval/test" ],
+            "args": ["--extensionDevelopmentPath=${workspaceRoot}", "--extensionTestsPath=${workspaceRoot}/test" ],
             "stopOnEntry": false
         }
     ]
