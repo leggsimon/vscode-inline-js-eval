@@ -10,7 +10,7 @@ function parseText () {
         const fileText = currentFile.getText()
         const functions = parse.findFunctions(fileText)
 
-        functions.forEach(func => {
+        functions.forEach(async (func, i) => {
             const functionLine = currentFile.lineAt(func.loc.start.line)
             const params = func.params.map(param => param.name)
             console.log({
@@ -18,12 +18,26 @@ function parseText () {
                 name: func.id.name,
                 params
             })
-            // loop until params are declared in an await for..loop
-            // store selections into a object.
-            vscode.window.showQuickPick(params)
-                .then(pick => {
-                    pick.
-                })
+
+            // just deal with the first function for the time-being
+            if (i === 0) {
+                const paramsDefininitions = {}
+                // loop until params are declared in an await for..loop
+                // store selections into a object.
+                while (Object.keys(paramsDefininitions).length < params.length) {
+                    // let selection;
+                    // let exit;
+                    const options = params.filter(p => !Object.keys(paramsDefininitions).includes(p))
+                    const selection = await vscode.window.showQuickPick(options)
+                    if (!selection) { break } // TODO: maybe continue instead and break in a different case?
+                    const value = await vscode.window.showInputBox({ prompt: selection })
+                    if (!value) { break } // TODO: maybe continue instead and break in a different case?
+                    paramsDefininitions[selection] = value
+                }
+                const paramsString = params.map(p => `${p} = ${paramsDefininitions[p]}`).join(', ')
+                console.log(paramsString)
+
+            }
         })
 
 
